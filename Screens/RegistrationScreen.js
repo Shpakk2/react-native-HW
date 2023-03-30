@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import {
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
@@ -51,6 +52,10 @@ const RegistrationScreen = ({
   };
 
   return (
+        <ImageBackground
+          source={require("../assets/img/BackGroundPhoto.png")}
+          style={styles.BackGroundPhoto}
+        >
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
     >
@@ -170,7 +175,8 @@ const RegistrationScreen = ({
           </>
         )}
       </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+      </ImageBackground>
   );
 };
 

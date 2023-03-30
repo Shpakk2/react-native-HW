@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   View,
+  ImageBackground
 } from "react-native";
 import styles from "./Styles"
 
@@ -32,6 +33,10 @@ const LoginScreen = ({ keyboardHide, isKeyboardOpen, setIsKeyboardOpen }) => {
   };
 
   return (
+    <ImageBackground
+          source={require("../assets/img/BackGroundPhoto.png")}
+          style={styles.BackGroundPhoto}
+        >
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
     >
@@ -103,7 +108,8 @@ const LoginScreen = ({ keyboardHide, isKeyboardOpen, setIsKeyboardOpen }) => {
           </>
         )}
       </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+      </ImageBackground>
   );
 };
 

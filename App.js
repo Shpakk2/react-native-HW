@@ -1,5 +1,4 @@
 import {
-  ImageBackground,
   Keyboard,
   TouchableWithoutFeedback,
   View,
@@ -13,6 +12,7 @@ import { useState, useEffect } from "react";
 export default function App() {
   const [fontsIsLoad, setfontsIsLoad] = useState(false);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  
   const customFonts = {
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
@@ -37,10 +37,7 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <ImageBackground
-          source={require("./assets/img/BackGroundPhoto.png")}
-          style={styles.BackGroundPhoto}
-        >{"register" === "login" ?           <RegistrationScreen
+  {"register" !== "login" ?           <RegistrationScreen
             keyboardHide={keyboardHide}
             setIsKeyboardOpen={setIsKeyboardOpen}
             isKeyboardOpen={isKeyboardOpen}
@@ -49,7 +46,6 @@ export default function App() {
             setIsKeyboardOpen={setIsKeyboardOpen}
             isKeyboardOpen={isKeyboardOpen}
           /> }
-        </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
   );
