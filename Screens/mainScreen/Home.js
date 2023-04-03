@@ -10,7 +10,7 @@ import CreatePostsScreen from "./CreatePostsScreen"
 
 const MainTab = createBottomTabNavigator();
 
-const Home = ({ navigation}) => {
+const Home = ({ navigation, setIsLogedIn }) => {
   return (
     <MainTab.Navigator
       screenOptions={{
