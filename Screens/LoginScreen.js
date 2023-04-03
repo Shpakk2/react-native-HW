@@ -34,12 +34,12 @@ const LoginScreen = ({ navigation }) => {
     e.preventDefault();
     console.log(loginState);
     setLoginState(initialState);
+          navigation.navigate("Home")
   };
 
     const keyboardHide = () => {
     setIsKeyboardOpen(false);
       Keyboard.dismiss();
-      navigation.navigate("Home")
   };
 
   return (
@@ -109,8 +109,8 @@ const LoginScreen = ({ navigation }) => {
         </View>
         {!isKeyboardOpen && (
           <>
-            <TouchableOpacity style={styles.buttonMain} onPress={onSignIn}>
-              <Text style={styles.buttonMainText} onPress={keyboardHide}>
+            <TouchableOpacity style={styles.buttonMain} >
+              <Text style={styles.buttonMainText} onPress={onSignIn}>
                 Sign In
               </Text>
             </TouchableOpacity>

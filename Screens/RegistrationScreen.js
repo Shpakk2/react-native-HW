@@ -38,6 +38,7 @@ navigation
     e.preventDefault();
     console.log(registrationState);
     setRegistrationState(initialState);
+          navigation.navigate("Home")
   };
 
   const addUserPhoto = async () => {
@@ -55,8 +56,7 @@ navigation
 
     const keyboardHide = () => {
     setIsKeyboardOpen(false);
-      Keyboard.dismiss();
-      navigation.navigate("Home")
+    Keyboard.dismiss();
   };
 
   return (
@@ -174,8 +174,8 @@ navigation
         </View>
         {!isKeyboardOpen && (
           <>
-            <TouchableOpacity style={styles.buttonMain} onPress={onRegister}>
-              <Text style={styles.buttonMainText} onPress={keyboardHide}>
+            <TouchableOpacity style={styles.buttonMain}>
+              <Text style={styles.buttonMainText} onPress={onRegister}>
                 Sign Up
               </Text>
             </TouchableOpacity>
