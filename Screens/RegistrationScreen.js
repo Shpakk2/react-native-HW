@@ -2,14 +2,17 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import {
   ImageBackground,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
   Image,
 } from "react-native";
+
 import styles from "./Styles"
 
 const initialState = {
@@ -20,13 +23,12 @@ const initialState = {
 };
 
 const RegistrationScreen = ({
-  keyboardHide,
-  isKeyboardOpen,
-  setIsKeyboardOpen,
+navigation 
 }) => {
   const [registrationState, setRegistrationState] = useState(initialState);
   const [secureEntry, setSecureEntry] = useState(true);
   const [inFocus, setInFocus] = useState("");
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const togglePass = () => {
     setSecureEntry(!secureEntry);
@@ -51,7 +53,14 @@ const RegistrationScreen = ({
     setRegistrationState((prev) => ({ ...prev, photo: result.assets[0].uri }));
   };
 
+    const keyboardHide = () => {
+    setIsKeyboardOpen(false);
+    Keyboard.dismiss();
+  };
+
   return (
+        <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
         <ImageBackground
           source={require("../assets/img/BackGroundPhoto.png")}
           style={styles.BackGroundPhoto}
@@ -170,13 +179,17 @@ const RegistrationScreen = ({
               </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.link}>Already have an account? Sign In</Text>
+              <Text style={styles.link} onPress={() => {
+                        navigation.navigate("LoginScreen");
+                      }}>Already have an account? Sign In</Text>
             </TouchableOpacity>
           </>
         )}
       </View>
       </KeyboardAvoidingView>
       </ImageBackground>
+            </View>
+    </TouchableWithoutFeedback>
   );
 };
 

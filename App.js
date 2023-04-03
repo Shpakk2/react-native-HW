@@ -1,17 +1,18 @@
-import {
-  Keyboard,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { useState, useEffect } from "react";
+
+import * as Font from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Home from "./Screens/mainScreen/Home"
 import LoginScreen from "./Screens/LoginScreen";
 import RegistrationScreen from "./Screens/RegistrationScreen";
-import styles from "./Screens/Styles";
-import * as Font from "expo-font";
-import { useState, useEffect } from "react";
+
+const AuthStack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsIsLoad, setfontsIsLoad] = useState(false);
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(true);
   
   const customFonts = {
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -29,24 +30,31 @@ export default function App() {
   if (!fontsIsLoad) {
     return null;
   }
-  const keyboardHide = () => {
-    setIsKeyboardOpen(false);
-    Keyboard.dismiss();
-  };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container}>
-  {"register" !== "login" ?           <RegistrationScreen
-            keyboardHide={keyboardHide}
-            setIsKeyboardOpen={setIsKeyboardOpen}
-            isKeyboardOpen={isKeyboardOpen}
-          /> :           <LoginScreen
-            keyboardHide={keyboardHide}
-            setIsKeyboardOpen={setIsKeyboardOpen}
-            isKeyboardOpen={isKeyboardOpen}
-          /> }
-      </View>
-    </TouchableWithoutFeedback>
+<NavigationContainer>
+      <AuthStack.Navigator>
+        {!isLogedIn ? (
+          <>
+            <AuthStack.Screen
+              name="RegistrationScreen"
+              component={RegistrationScreen}
+              options={{ headerShown: false }}
+            />
+            <AuthStack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        ) : (
+          <AuthStack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+        )}
+      </AuthStack.Navigator>
+    </NavigationContainer>
   );
 }

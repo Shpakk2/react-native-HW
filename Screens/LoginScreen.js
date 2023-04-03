@@ -2,14 +2,17 @@ import {
     useState
 } from "react";
 import {
+  ImageBackground,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
-  ImageBackground
 } from "react-native";
+
 import styles from "./Styles"
 
 const initialState = {
@@ -17,10 +20,11 @@ const initialState = {
   password: "",
 };
 
-const LoginScreen = ({ keyboardHide, isKeyboardOpen, setIsKeyboardOpen }) => {
+const LoginScreen = ({ navigation }) => {
   const [loginState, setLoginState] = useState(initialState);
   const [secureEntry, setSecureEntry] = useState(true);
   const [inFocus, setInFocus] = useState("");
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const togglePass = () => {
     setSecureEntry(!secureEntry);
@@ -32,7 +36,14 @@ const LoginScreen = ({ keyboardHide, isKeyboardOpen, setIsKeyboardOpen }) => {
     setLoginState(initialState);
   };
 
+    const keyboardHide = () => {
+    setIsKeyboardOpen(false);
+    Keyboard.dismiss();
+  };
+
   return (
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
     <ImageBackground
           source={require("../assets/img/BackGroundPhoto.png")}
           style={styles.BackGroundPhoto}
@@ -103,13 +114,17 @@ const LoginScreen = ({ keyboardHide, isKeyboardOpen, setIsKeyboardOpen }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.link}>Create Account</Text>
+              <Text style={styles.link} onPress={() => {
+                        navigation.navigate("RegistrationScreen");
+                      }} >Create Account</Text>
             </TouchableOpacity>
           </>
         )}
       </View>
       </KeyboardAvoidingView>
-      </ImageBackground>
+        </ImageBackground>
+      </View>
+      </TouchableWithoutFeedback>
   );
 };
 
