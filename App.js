@@ -34,8 +34,12 @@ export default function App() {
   return (
 <NavigationContainer>
       <AuthStack.Navigator>
-        {!isLogedIn ? (
-          <>
+        <>
+                                <AuthStack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
             <AuthStack.Screen
               name="RegistrationScreen"
               component={RegistrationScreen}
@@ -47,13 +51,7 @@ export default function App() {
               options={{ headerShown: false }}
             />
           </>
-        ) : (
-          <AuthStack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-        )}
+
       </AuthStack.Navigator>
     </NavigationContainer>
   );

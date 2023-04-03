@@ -55,7 +55,8 @@ navigation
 
     const keyboardHide = () => {
     setIsKeyboardOpen(false);
-    Keyboard.dismiss();
+      Keyboard.dismiss();
+      navigation.navigate("Home")
   };
 
   return (

@@ -41,8 +41,8 @@ const Home = ({ navigation, setIsLogedIn }) => {
           ),
           title: "Publications",
           headerTitleAlign: "center",
-          headerRight: ({ navigation }) => (
-            <TouchableOpacity style={{ paddingRight: 16 }}>
+          headerRight: () => (
+            <TouchableOpacity style={{ paddingRight: 16 }  } onPress={() => navigation.navigate("RegistrationScreen")} >
               <Feather name="log-out" size={24} color="#BDBDBD" />
             </TouchableOpacity>
           ),
