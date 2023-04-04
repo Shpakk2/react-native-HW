@@ -1,8 +1,8 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { TouchableOpacity } from "react-native";
-import { Feather, Icon } from "@expo/vector-icons";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Feather } from "@expo/vector-icons";
 
 import PostsScreen from './PostsScreen'
 import ProfileScreen from "./ProfileScreen"
@@ -10,7 +10,7 @@ import CreatePostsScreen from "./CreatePostsScreen"
 
 const MainTab = createBottomTabNavigator();
 
-const Home = ({ navigation, setIsLogedIn }) => {
+const Home = ({ navigation }) => {
   return (
     <MainTab.Navigator
       screenOptions={{
@@ -36,15 +36,9 @@ const Home = ({ navigation, setIsLogedIn }) => {
         name="Posts"
         component={PostsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Feather name="grid" size={24} color={color} />
-          ),
-          title: "Publications",
-          headerTitleAlign: "center",
-          headerRight: () => (
-            <TouchableOpacity style={{ paddingRight: 16 }  } onPress={() => navigation.navigate("RegistrationScreen")} >
-              <Feather name="log-out" size={24} color="#BDBDBD" />
-            </TouchableOpacity>
           ),
         }}
       />

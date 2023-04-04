@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Roboto-Medium",
-    // fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
     textAlign: "center",
@@ -48,7 +47,6 @@ const styles = StyleSheet.create({
   lastInput: {
     marginBottom: 43,
   },
-
   buttonMain: {
     height: 50,
     padding: 16,
@@ -95,6 +93,107 @@ const styles = StyleSheet.create({
     height: 25,
     top: 81,
     left:107,
+  },
+   containerCreatePostScreen: {
+    paddingTop: 32,
+    paddingHorizontal: 16,
+    backgroundColor: "#ffffff",
+    marginTop: "auto",
+  },
+  cameraPlaceholder: {
+    borderRadius: 8,
+    overflow: "hidden",
+    marginBottom: 8,
+  },
+  camera: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 240,
+  },
+  cameraIcon: {
+    // borderRadius: 40,
+  },
+  takenPhoto: {
+    position: "absolute",
+    width: 120,
+    height: 80,
+    borderRadius: 8,
+    top: 5,
+    right: 5,
+    overflow: "hidden",
+  },
+  photoStatus: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#BDBDBD",
+    marginBottom: 32,
+  },
+  photoNameInput: {
+    height: 50,
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E8E8E8",
+  },
+  photoLocationInput: {
+    height: 50,
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 32,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E8E8E8",
+  },
+  photoInputText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  buttonDel: {
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F6F6F6",
+    marginHorizontal:"auto",
+    justifyContent: "center",
+    alignItems:"center",
+  },
+  containerPostsScreen: {
+    paddingTop: 32,
+    paddingHorizontal: 16,
+    backgroundColor: "#ffffff",
+    marginBottom: 43,
+  },
+  userInfo: {
+    marginBottom: 32,
+  },
+  postItem: {
+    marginBottom: 32,
+    gap: 8,
+  },
+  postItemName: {
+    fontFamily: "Roboto-Medium",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#212121",
+  },
+  postItemAttr: {
+    width: "100%",
+    flexDirection: "row",
+    alignContent: "space-between",
+    justifyContent: "space-between",
+  },
+  postItemLinkMsg: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  postItemLinkLoc: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  postItemLinkText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
   },
 });
 
