@@ -1,6 +1,5 @@
-import {
-    useState
-} from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   ImageBackground,
   Keyboard,
@@ -13,7 +12,8 @@ import {
   View,
 } from "react-native";
 
-import styles from "./Styles"
+import { signIn } from "../redux/auth/authOperations";
+import styles from "./Styles";
 
 const initialState = {
   email: "",
@@ -25,6 +25,7 @@ const LoginScreen = ({ navigation }) => {
   const [secureEntry, setSecureEntry] = useState(true);
   const [inFocus, setInFocus] = useState("");
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const togglePass = () => {
     setSecureEntry(!secureEntry);
@@ -32,100 +33,105 @@ const LoginScreen = ({ navigation }) => {
 
   const onSignIn = (e) => {
     e.preventDefault();
-    console.log(loginState);
+    dispatch(signIn(loginState));
     setLoginState(initialState);
-          navigation.navigate("Home")
   };
 
-    const keyboardHide = () => {
+  const keyboardHide = () => {
     setIsKeyboardOpen(false);
-      Keyboard.dismiss();
+    Keyboard.dismiss();
   };
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-    <ImageBackground
+        <ImageBackground
           source={require("../assets/img/BackGroundPhoto.png")}
           style={styles.BackGroundPhoto}
         >
-    <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
-    >
-      <View
-        style={{
-          ...styles.containerLogin,
-          marginBottom: isKeyboardOpen ? -100 : 0,
-        }}
-      >
-        <Text style={styles.title}>Sign In</Text>
-        <TextInput
-          placeholder="Email address"
-          style={{
-            ...styles.input,
-            borderColor: inFocus === "email" ? "#ff6c00" : "#E8E8E8",
-          }}
-          value={loginState.email}
-          onChangeText={(value) =>
-            setLoginState((prev) => ({ ...prev, email: value }))
-          }
-          onFocus={() => {
-            setIsKeyboardOpen(true);
-            setInFocus("email");
-          }}
-          onBlur={() => {
-            setIsKeyboardOpen(false);
-            setInFocus("");
-          }}
-        />
-        <View>
-          <TextInput
-            placeholder="Password"
-            style={[
-              styles.input,
-              {
-                ...styles.lastInput,
-                marginBottom: isKeyboardOpen ? 32 : 43,
-                borderColor: inFocus === "password" ? "#ff6c00" : "#E8E8E8",
-              },
-            ]}
-            value={loginState.password}
-            secureTextEntry={secureEntry}
-            onChangeText={(value) =>
-              setLoginState((prev) => ({ ...prev, password: value }))
-            }
-            onFocus={() => {
-              setIsKeyboardOpen(true);
-              setInFocus("password");
-            }}
-            onBlur={() => {
-              setIsKeyboardOpen(false);
-              setInFocus("");
-            }}
-          />
-          <Text style={styles.showPassLogin} onPress={togglePass}>
-            Show
-          </Text>
-        </View>
-        {!isKeyboardOpen && (
-          <>
-            <TouchableOpacity style={styles.buttonMain} >
-              <Text style={styles.buttonMainText} onPress={onSignIn}>
-                Sign In
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.link} onPress={() => {
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.containerLogin,
+                marginBottom: isKeyboardOpen ? -100 : 0,
+              }}
+            >
+              <Text style={styles.title}>Sign In</Text>
+              <TextInput
+                placeholder="Email address"
+                style={{
+                  ...styles.input,
+                  borderColor: inFocus === "email" ? "#ff6c00" : "#E8E8E8",
+                }}
+                value={loginState.email}
+                onChangeText={(value) =>
+                  setLoginState((prev) => ({ ...prev, email: value }))
+                }
+                onFocus={() => {
+                  setIsKeyboardOpen(true);
+                  setInFocus("email");
+                }}
+                onBlur={() => {
+                  setIsKeyboardOpen(false);
+                  setInFocus("");
+                }}
+              />
+              <View>
+                <TextInput
+                  placeholder="Password"
+                  style={[
+                    styles.input,
+                    {
+                      ...styles.lastInput,
+                      marginBottom: isKeyboardOpen ? 32 : 43,
+                      borderColor:
+                        inFocus === "password" ? "#ff6c00" : "#E8E8E8",
+                    },
+                  ]}
+                  value={loginState.password}
+                  secureTextEntry={secureEntry}
+                  onChangeText={(value) =>
+                    setLoginState((prev) => ({ ...prev, password: value }))
+                  }
+                  onFocus={() => {
+                    setIsKeyboardOpen(true);
+                    setInFocus("password");
+                  }}
+                  onBlur={() => {
+                    setIsKeyboardOpen(false);
+                    setInFocus("");
+                  }}
+                />
+                <Text style={styles.showPassLogin} onPress={togglePass}>
+                  Show
+                </Text>
+              </View>
+              {!isKeyboardOpen && (
+                <>
+                  <TouchableOpacity style={styles.buttonMain}>
+                    <Text style={styles.buttonMainText} onPress={onSignIn}>
+                      Sign In
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text
+                      style={styles.link}
+                      onPress={() => {
                         navigation.navigate("RegistrationScreen");
-                      }} >Create Account</Text>
-            </TouchableOpacity>
-          </>
-        )}
-      </View>
-      </KeyboardAvoidingView>
+                      }}
+                    >
+                      Create Account
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          </KeyboardAvoidingView>
         </ImageBackground>
       </View>
-      </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>
   );
 };
 

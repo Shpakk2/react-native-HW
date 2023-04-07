@@ -1,18 +1,12 @@
 import { useState, useEffect } from "react";
-
 import * as Font from "expo-font";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
 
-import Home from "./Screens/mainScreen/Home"
-import LoginScreen from "./Screens/LoginScreen";
-import RegistrationScreen from "./Screens/RegistrationScreen";
-
-const AuthStack = createNativeStackNavigator();
+import { store } from "./redux/Store"
+import Main from "./Screens/Main";
 
 export default function App() {
   const [fontsIsLoad, setfontsIsLoad] = useState(false);
-  const [isLogedIn, setIsLogedIn] = useState(true);
   
   const customFonts = {
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -32,24 +26,8 @@ export default function App() {
   }
 
   return (
-<NavigationContainer >
-      <AuthStack.Navigator screenOptions={{ headerShown: false }} >
-        <>
-                                <AuthStack.Screen
-            name="Home"
-            component={Home}
-          />
-            <AuthStack.Screen
-              name="RegistrationScreen"
-              component={RegistrationScreen}
-            />
-            <AuthStack.Screen
-              name="LoginScreen"
-              component={LoginScreen}
-            />
-          </>
-
-      </AuthStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 }

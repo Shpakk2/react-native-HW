@@ -14,7 +14,6 @@ const MapScreen = ({ navigation, route }) => {
         longitude: parseFloat(route.params.longitude),
       });
   }, [route.params]);
-  console.log(route.params);
   return (
     <View style={styles.container}>
       {coords && <MapView

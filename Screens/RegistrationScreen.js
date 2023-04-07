@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 import {
   ImageBackground,
@@ -13,6 +14,7 @@ import {
   Image,
 } from "react-native";
 
+import { signUp } from "../redux/auth/authOperations";
 import styles from "./Styles"
 
 const initialState = {
@@ -29,6 +31,7 @@ navigation
   const [secureEntry, setSecureEntry] = useState(true);
   const [inFocus, setInFocus] = useState("");
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const togglePass = () => {
     setSecureEntry(!secureEntry);
@@ -36,9 +39,9 @@ navigation
 
   const onRegister = (e) => {
     e.preventDefault();
-    console.log(registrationState);
+    console.log(registrationState)
+    dispatch(signUp(registrationState));
     setRegistrationState(initialState);
-          navigation.navigate("Home")
   };
 
   const addUserPhoto = async () => {
@@ -123,7 +126,6 @@ navigation
             setInFocus("");
           }}
         />
-
         <TextInput
           placeholder="Email address"
           style={{

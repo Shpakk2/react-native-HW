@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Image,
   Keyboard,
@@ -7,13 +8,16 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
+  TouchableOpacity,
 } from "react-native";
-
-import { Camera } from "expo-camera";
-import { TouchableOpacity } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Feather } from "@expo/vector-icons";
+import { Camera } from "expo-camera";
+
+import uploadPostImg from "../../firebase/uploadPostImg";
+import { getUserId } from "../../redux/auth/authSelectors";
+import { addPost } from "../../redux/dashboard/dbOperations";
 
 import styles from "../Styles";
 
@@ -29,6 +33,8 @@ const CreatePostsScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [disabledBtn, setDisabledBtn] = useState(true);
+  const userId = useSelector(getUserId);
+  const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsKeyboardOpen(false);
@@ -49,17 +55,24 @@ const CreatePostsScreen = ({ navigation }) => {
       latitude: current.coords.latitude.toString(),
       longitude: current.coords.longitude.toString(),
     };
-    navigation.navigate("DefaultPostsScreen", {
-      ...postState,
-      ...currentLocation,
-    });
+    navigation.navigate("Posts");
+    const postUrl = await uploadPostImg(postState.photo, userId); //Передаём на сервер картинку поста
+    const newPost = {
+      timestamp: Date.now().toString(),
+      photo: postUrl,
+      photoName: postState.name,
+      location: currentLocation,
+      locationName: postState.locationName,
+      userId,
+    };
+    dispatch(addPost(newPost));
     setPostState(initialState);
     setDisabledBtn(true);
   };
 
   const onRemoveForm = () => {
     setPostState(initialState);
-  }
+  };
 
   useEffect(() => {
     if (postState.photo && postState.name && postState.locationName) {
@@ -130,7 +143,7 @@ const CreatePostsScreen = ({ navigation }) => {
             )}
             <View style={styles.photoNameInput}>
               <TextInput
-                placeholder="Name..."
+                placeholder="Title..."
                 style={styles.photoInputText}
                 value={postState.name}
                 onChangeText={(value) =>
